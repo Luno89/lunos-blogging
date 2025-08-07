@@ -1,20 +1,30 @@
+import { useBlogStore } from "@/providers/blogStoreProvider";
+
 export default function Home() {
-    return (
-        <div className="grid grid-cols-5">
-            <div></div>
-            <div className="col-span-3">
-              <h1 className="text-3xl mb-3">Luno's Blog</h1>
-              <div className="grid grid-cols-7">
-                <div className="col-span-6">
-                  <div className="text-lg">Something Iplerbus unum </div>
-                  <div className="text-sm italic ">Corigan Simpson - 23 Likes</div>
-                </div>
-                <div className="text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
-              </div>
-            </div>
-            <div></div>
+  const blogList = useBlogStore(state => state.blogList);
+
+  return (
+    <div className="grid grid-cols-5">
+      <div className="col-span-3">
+        <h1 className="text-3xl mb-3">Luno's Blog</h1>
+        <div className="grid grid-cols-7">
+          <div className="col-span-6">
+            <div className="text-lg">Something Iplerbus unum </div>
+            <div className="text-sm italic ">Corigan Simpson - 23 Likes</div>
+          </div>
+          <div className="text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
         </div>
-    );
+        {blogList.map((blogListItem, index) => (
+          <div key={index} className="grid grid-cols-7">
+            <div className="col-span-6">
+              <div className="text-lg">{blogListItem.title}</div>
+              <div className="text-sm italic ">{blogListItem.author} - {blogListItem.likes} Likes</div>
+            </div>
+            <div className="text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
+          </div>))}
+      </div>
+    </div>
+  );
 }
 
 // export default function Home() {
