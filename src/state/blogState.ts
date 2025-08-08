@@ -14,6 +14,7 @@ export type BlogAction = {
   like: () => void,
   unLike: () => void,
   getBlogPost: (slug: string) => void
+  getBlogList: () => void
 }
 
 export type BlogStore = BlogState & BlogAction;
@@ -27,6 +28,13 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
     ...initState,
     like: () => set(state => ({})),
     unLike: () => set(state => ({})),
-    getBlogPost: (slug: string) => {}
+    getBlogPost: (slug: string) => {},
+    getBlogList: () => set(state => ({
+      blogList: [
+        { title: "First Blog Post", author: "Author One", likes: 10 },
+        { title: "Second Blog Post", author: "Author Two", likes: 20 },
+        { title: "Third Blog Post", author: "Author Three", likes: 30 }
+      ]
+    }))
   }))
 }
