@@ -1,5 +1,6 @@
 'use client';
 import { useBlogStore } from "@/providers/blogStoreProvider";
+import Link from "next/link";
 import { useEffect } from "react";
 
 export default function HomePage() {
@@ -16,13 +17,16 @@ export default function HomePage() {
       <div className="col-span-3">
         <h1 className="text-3xl mb-3">Luno's Blog</h1>
         {blogList.map((blogListItem, index) => (
-          <div key={index} className="grid grid-cols-7 mb-4 pb-3 pl-3 pr-3 ring-1 ring-white/10 rounded-sm p-2 hover:bg-white/5 transition-colors cursor-pointer">
+          <Link href={`/blog/${blogListItem.slug}`} key={index}>
+          <div className="grid grid-cols-7 mb-4 pb-3 pl-3 pr-3 ring-1 ring-white/10 rounded-sm p-2 hover:bg-white/5 transition-colors cursor-pointer">
             <div className="col-span-6">
               <div className="text-lg">{blogListItem.title}</div>
+              <div className="text-sm text-gray-400 mb-2">{blogListItem.summary}</div>
               <div className="text-sm italic ">{blogListItem.author} - {blogListItem.likes} Likes</div>
             </div>
             <div className="text-right text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
-          </div>))}
+          </div>
+          </Link>))}
       </div>
       <div className="col-span-1"></div>
     </div>

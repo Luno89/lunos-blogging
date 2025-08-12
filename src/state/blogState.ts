@@ -2,8 +2,15 @@ import { createStore } from "zustand";
 
 export type BlogListItem = {
   title: string,
+  summary: string,
+  slug: string,
   author: string,
   likes: number,
+}
+
+export type BlogPost = {
+  title: string,
+  content: string,
 }
 
 export type BlogState = {
@@ -13,7 +20,7 @@ export type BlogState = {
 export type BlogAction = {
   like: () => void,
   unLike: () => void,
-  getBlogPost: (slug: string) => void
+  getBlogPost: (slug: string) => BlogPost,
   getBlogList: () => void
 }
 
@@ -28,12 +35,18 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
     ...initState,
     like: () => set(state => ({})),
     unLike: () => set(state => ({})),
-    getBlogPost: (slug: string) => {},
+    getBlogPost: (slug: string) => {
+      const blogPost: BlogPost = {
+        title: `Blog Post for ${slug}`,
+        content: `<p>This is the content for the blog post with slug: ${slug}</p>`
+      };
+      return blogPost;
+    },
     getBlogList: () => set(state => ({
       blogList: [
-        { title: "First Blog Post", author: "Author One", likes: 10 },
-        { title: "Second Blog Post", author: "Author Two", likes: 20 },
-        { title: "Third Blog Post", author: "Author Three", likes: 30 }
+        { title: "First Blog Post", author: "Author One", likes: 10, slug: "first-blog-post", summary: "This is the first blog post." },
+        { title: "Second Blog Post", author: "Author Two", likes: 20, slug: "second-blog-post", summary: "This is the second blog post." },
+        { title: "Third Blog Post", author: "Author Three", likes: 30, slug: "third-blog-post", summary: "This is the third blog post." },
       ]
     }))
   }))
