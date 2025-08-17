@@ -10,7 +10,7 @@ export default function Page({params}: {params: Promise<{slug: string}> }) {
     
     return (
         <div>
-            <h1>{post.title}</h1>
+            <h1 className="text-3xl mb-3">{post.title}</h1>
             <div dangerouslySetInnerHTML={{__html: post.content}} />
         </div>
     );

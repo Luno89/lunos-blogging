@@ -12,13 +12,10 @@ export default function HomePage() {
   }, [getBlogList]);
 
   return (
-    <div className="grid grid-cols-5">
-      <div className="col-span-1"></div>
-      <div className="col-span-3">
-        <h1 className="text-3xl mb-3">Luno's Blog</h1>
-        {blogList.map((blogListItem, index) => (
-          <Link href={`/blog/${blogListItem.slug}`} key={index}>
-          <div className="grid grid-cols-7 mb-4 pb-3 pl-3 pr-3 ring-1 ring-white/10 rounded-sm p-2 hover:bg-white/5 transition-colors cursor-pointer">
+    <>
+      {blogList.map((blogListItem, index) => (
+        <Link href={`/blog/${blogListItem.slug}`} key={index}>
+          <div className="grid grid-cols-7 pb-3 pl-3 pr-3 p-2 hover:bg-white/5 transition-colors cursor-pointer">
             <div className="col-span-6">
               <div className="text-lg">{blogListItem.title}</div>
               <div className="text-sm text-gray-400 mb-2">{blogListItem.summary}</div>
@@ -26,9 +23,8 @@ export default function HomePage() {
             </div>
             <div className="text-right text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
           </div>
-          </Link>))}
-      </div>
-      <div className="col-span-1"></div>
-    </div>
+          <div className="grid grid-cols-7 mb-4 outline" />
+        </Link>))}
+    </>
   );
 }

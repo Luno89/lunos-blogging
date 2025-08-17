@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BlogStoreProvider } from "@/providers/blogStoreProvider";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,18 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <BlogStoreProvider>
-          {children}
-        </BlogStoreProvider>
+        <div className="grid grid-cols-5">
+          <div className="col-span-1"></div>
+          <div className="col-span-3">
+            <Link href="/" >
+              <h1 className="text-4xl mb-3">Luno's Blog</h1>
+            </Link>
+            <BlogStoreProvider>
+              {children}
+            </BlogStoreProvider>
+          </div>
+          <div className="col-span-1"></div>
+        </div>
       </body>
     </html>
   );
