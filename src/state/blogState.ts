@@ -1,4 +1,6 @@
 import { createStore } from "zustand";
+import {marked} from "marked";
+import { exampleMarkdownBlogPost } from "@/app/model/example";
 
 export type BlogListItem = {
   title: string,
@@ -36,10 +38,11 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
     like: () => set(state => ({})),
     unLike: () => set(state => ({})),
     getBlogPost: (slug: string) => {
-      const blogPost: BlogPost = {
+      let blogPost: BlogPost = {
         title: `Blog Post for ${slug}`,
         content: `<p>This is the content for the blog post with slug: ${slug}</p>`
       };
+      blogPost.content = marked.parse(exampleMarkdownBlogPost).toString();
       return blogPost;
     },
     getBlogList: () => set(state => ({
