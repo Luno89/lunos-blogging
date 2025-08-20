@@ -1,5 +1,6 @@
 import { createStore } from "zustand";
 import {marked} from "marked";
+import DOMPurify from "dompurify";
 import { exampleMarkdownBlogPost } from "@/app/model/example";
 
 export type BlogListItem = {
@@ -42,7 +43,7 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
         title: `Blog Post for ${slug}`,
         content: `<p>This is the content for the blog post with slug: ${slug}</p>`
       };
-      blogPost.content = marked.parse(exampleMarkdownBlogPost).toString();
+      blogPost.content = DOMPurify.sanitize(marked.parse(exampleMarkdownBlogPost).toString());
       return blogPost;
     },
     getBlogList: () => set(state => ({
