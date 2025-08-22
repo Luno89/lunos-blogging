@@ -1,15 +1,26 @@
 'use client';
+import { getPostBySlug } from "@/lib/api";
 import { useBlogStore } from "@/providers/blogStoreProvider";
+import { BlogPost } from "@/state/blogState";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function HomePage() {
   const getBlogList = useBlogStore(state => state.getBlogList);
   const blogList = useBlogStore(state => state.blogList);
+  const getBlogPost = useBlogStore(state => state.getBlogPost);
+  const createBlogPost = useBlogStore(state => state.createBlogPost);
+
+  const [post, setPost] = useState<BlogPost>();
 
   useEffect(() => {
     getBlogList();
   }, [getBlogList]);
+
+  const getThePost = async () => {
+    var blogPost = await getPostBySlug('Something-Very-Good');
+    setPost(blogPost);
+  }
 
   return (
     <>
@@ -25,6 +36,18 @@ export default function HomePage() {
           </div>
           <div className="grid grid-cols-7 mb-4 outline" />
         </Link>))}
+        <button onClick={() => createBlogPost({
+          title: "Some Title",
+          content: "Something very good",
+          summary: "Very good",
+          slug: "Something-Very-Good",
+          author: "",
+          likes: 0
+        })}>Create a new Blog Post</button>
+
+        <hr/>
+        <button onClick={getThePost}>Get The post</button>
+        <p>{JSON.stringify(post)}</p>
     </>
   );
 }
