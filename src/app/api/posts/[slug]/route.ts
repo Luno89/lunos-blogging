@@ -13,8 +13,10 @@ export const GET = async (req: Request,{ params }: { params: Promise<{slug: stri
     return NextResponse.json(post);
 };
 
-export const POST = async (req: Request) => {
-    const { title, content, slug, summary, author, likes } = await req.json();
+export const POST = async (req: Request, { params }: { params: Promise<{slug: string}>}) => {
+    console.log('Im posting something to mongo')
+    const { slug } = await params;
+    const { title, content, summary, author, likes } = await req.json();
     const post = await client.db("blog").collection("posts").insertOne({ 
         title,
         summary,

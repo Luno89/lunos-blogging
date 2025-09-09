@@ -7,7 +7,7 @@ export const getPostBySlug = async (slug: string) => {
 };
 
 export const createBlogPost = async (blogPost: BlogPost) => {
-  const res = await fetch('/api/posts', {
+  const res = await fetch(`/api/posts/${blogPost.slug}`, {
     method: "POST",
     body: JSON.stringify(blogPost)
   })
