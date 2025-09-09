@@ -2,6 +2,7 @@
 
 import { useBlogStore } from "@/providers/blogStoreProvider";
 import { use } from "react";
+import styles from './blog.module.css'
 
 export default function Page({params}: {params: Promise<{slug: string}> }) {
     const {slug} = use(params);
@@ -9,8 +10,10 @@ export default function Page({params}: {params: Promise<{slug: string}> }) {
     const post = getBlogPost(slug);
     
     return (
-        <div>
-            <h1 className="text-3xl mb-3">{post.title}</h1>
+        <div className={styles.blog}>
+            <h1>{post.title}</h1>
+            <p>{post.summary}</p>
+            <p>{post.author}</p>
             <div dangerouslySetInnerHTML={{__html: post.content}} />
         </div>
     );

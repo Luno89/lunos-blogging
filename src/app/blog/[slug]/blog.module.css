@@ -1,0 +1,46 @@
+.blog {
+    font-family: 'Georgia', serif;
+    color: #ffcdcd;
+    background: #696969;
+    padding: 2rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.blog h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    color: #a99568;
+}
+
+.blog h2 {
+    font-size: 1.75rem;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    color: #b6c07b;
+}
+
+.blog p {
+    margin-bottom: 1.25rem;
+}
+
+.blog ol {
+    margin-left: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+.blog li {
+    margin-bottom: 0.5rem;
+}
+
+.blog blockquote {
+    border-left: 4px solid #3182ce;
+    background: #ffe3e3;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    color: #4a5568;
+}
