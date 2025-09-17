@@ -29,9 +29,9 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <div className="grid grid-cols-5">
+        <div className="grid grid-cols-7">
           <div className="col-span-1"></div>
-          <div className="col-span-3">
+          <div className="col-span-5">
             <Link href="/" >
               <h1 className="text-4xl mb-3">Luno's Blog</h1>
             </Link>

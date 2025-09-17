@@ -1,8 +1,9 @@
+'use client';
 import { createStore } from "zustand";
 import {marked} from "marked";
 import DOMPurify from "dompurify";
 import { exampleMarkdownBlogPost } from "@/app/models/example";
-import { createBlogPost, getPostBySlug } from "@/lib/api";
+import { createBlogPost, getPostBySlug, getBlogListFromAPI } from "@/lib/api";
 
 export type BlogListItem = {
   title: string,
@@ -24,7 +25,7 @@ export type BlogState = {
 export type BlogAction = {
   like: () => void,
   unLike: () => void,
-  getBlogPost: (slug: string) => BlogPost,
+  getBlogPost: (slug: string) => Promise<BlogPost>,
   getBlogList: () => void,
   createBlogPost: (blogPost: BlogPost) => void,
 }
@@ -40,7 +41,8 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
     ...initState,
     like: () => set(state => ({})),
     unLike: () => set(state => ({})),
-    getBlogPost: (slug: string) => {
+    getBlogPost: async (slug: string) => {
+      let post = await getPostBySlug(slug);
       let blogPost: BlogPost = {
         title: `Blog Post for ${slug}`,
         content: `<p>This is the content for the blog post with slug: ${slug}</p>`,
@@ -49,16 +51,29 @@ export const createBlogStore = (initState: BlogState = defaultInitState) => {
         author: "",
         likes: 0
       };
+
+      if (post) {
+        blogPost = post;
+      }
       blogPost.content = DOMPurify.sanitize(marked.parse(exampleMarkdownBlogPost).toString());
       return blogPost;
     },
-    getBlogList: () => set(state => ({
-      blogList: [
+    getBlogList: async () => {
+      let blogList = [
         { title: "First Blog Post", author: "Author One", likes: 10, slug: "first-blog-post", summary: "This is the first blog post." },
         { title: "Second Blog Post", author: "Author Two", likes: 20, slug: "second-blog-post", summary: "This is the second blog post." },
         { title: "Third Blog Post", author: "Author Three", likes: 30, slug: "third-blog-post", summary: "This is the third blog post." },
       ]
-    })),
+
+      var apiPosts = await getBlogListFromAPI();
+      if (apiPosts && apiPosts.length > 0) {
+        blogList = apiPosts;
+      }
+
+      set(state => ({
+        blogList: blogList
+      }))
+    },
     createBlogPost : (blogPost: BlogPost) => {
       createBlogPost(blogPost);
     }

@@ -34,7 +34,8 @@ export default function HomePage() {
             </div>
             <div className="text-right text-sm italic pt-1">{new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' })}</div>
           </div>
-          <div className="grid grid-cols-7 mb-4 outline" />
+          <hr />
+          <div className="grid grid-cols-7 mb-4" />
         </Link>))}
         <button onClick={() => createBlogPost({
           title: "Some Title",
