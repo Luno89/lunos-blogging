@@ -2,6 +2,7 @@
 import { getPostBySlug } from "@/lib/api";
 import { useBlogStore } from "@/providers/blogStoreProvider";
 import { BlogPost } from "@/state/blogState";
+import SelectionGrid from "./selectionGrid";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -37,6 +38,7 @@ export default function HomePage() {
           <hr />
           <div className="grid grid-cols-7 mb-4" />
         </Link>))}
+        <SelectionGrid />
         <button onClick={() => createBlogPost({
           title: "Some Title",
           content: "Something very good",
