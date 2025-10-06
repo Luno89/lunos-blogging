@@ -25,6 +25,8 @@ export default function HomePage() {
 
   return (
     <>
+      <SelectionGrid />
+      <h2 className="text-2xl">The Plots</h2>
       {blogList.map((blogListItem, index) => (
         <Link href={`/blog/${blogListItem.slug}`} key={index}>
           <div className="grid grid-cols-7 pb-3 pl-3 pr-3 p-2 hover:bg-white/5 transition-colors cursor-pointer">
@@ -38,7 +40,6 @@ export default function HomePage() {
           <hr />
           <div className="grid grid-cols-7 mb-4" />
         </Link>))}
-        <SelectionGrid />
         <button onClick={() => createBlogPost({
           title: "Some Title",
           content: "Something very good",
